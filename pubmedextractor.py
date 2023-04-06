@@ -68,8 +68,10 @@ def get_authors(soup):
     author = soup.find_all("Author",)
     author_list = []
     for name in author:
-        author_regex = re.compile(r'\D\d\d\D\D\d\d\d\d\d\d').search(name.get_text()).group()
-        author_list.append(author_regex)
+        #author_regex2 = name.get_text(separator=' ')
+        author_regex = re.compile(r'^[A-Z][a-z]+ [A-Z][a-z]+ ([A-Z][a-z]* )*[A-Z]{1,3} ').search(name.get_text(separator=' ')).group()
+        author_regex2 = re.sub(' [A-Z]{1,3} $','',author_regex)
+        author_list.append(author_regex2)
 
     return author_list
 
